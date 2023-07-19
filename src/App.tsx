@@ -28,7 +28,10 @@ import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { Menu } from "antd";
-import { HomeFilled } from "@ant-design/icons";
+import { DatabaseFilled, HomeFilled, InboxOutlined, LogoutOutlined, NotificationFilled, SecurityScanFilled, SettingOutlined, UsergroupDeleteOutlined } from "@ant-design/icons";
+import HomePage from "./pages/home";
+import { BlogPostEdit } from "./pages/blog-posts";
+import UsersPage from "./pages/users";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -57,15 +60,51 @@ function App() {
                   <Authenticated fallback={<CatchAllNavigate to="/login" />}>
                     <ThemedLayoutV2
                       Header={() => <Header sticky />}
-                      Sider={(props, logout) => <ThemedSiderV2 render={(logout) => {
-                        return (
-                          <>
-                            <Menu.Item key="home" icon={<HomeFilled/>}>
-                              <Link to={"/"}>Home</Link>
-                            </Menu.Item>
-                          </>
-                        )
-                      }} />}
+                      Sider={(props, logout) => (
+                        <ThemedSiderV2
+                          render={(logout) => {
+                            return (
+                              <>
+                                <Menu.Item key="home" icon={<HomeFilled />}>
+                                  <Link to={"/"}>Home</Link>
+                                </Menu.Item>
+
+                                <Menu.Item key="users" icon={<UsergroupDeleteOutlined />}>
+                                  <Link to={"/users"}>Users</Link>
+                                </Menu.Item>
+
+
+                                <Menu.Item key="posts" icon={<InboxOutlined />}>
+                                  <Link to={"/posts"}>Posts</Link>
+                                </Menu.Item>
+
+                                <Menu.Item key="analytics" icon={<DatabaseFilled />}>
+                                  <Link to={"/analytics"}>Analytics</Link>
+                                </Menu.Item>
+
+                                <Menu.Item key="notifications" icon={<NotificationFilled />}>
+                                  <Link to={"/notifications"}>Notifications</Link>
+                                </Menu.Item>
+
+                                <Menu.Item key="settings" icon={<SettingOutlined />}>
+                                  <Link to={"/settings"}>Settings</Link>
+                                </Menu.Item>
+
+                                <Menu.Item key="security" icon={<SecurityScanFilled />}>
+                                  <Link to={"/security"}>Security</Link>
+                                </Menu.Item>
+
+                                <Menu.Item key="logout" icon={<LogoutOutlined />}>
+                                  <Link to={"/logout"}>Logout</Link>
+                                </Menu.Item>
+
+
+
+                              </>
+                            );
+                          }}
+                        />
+                      )}
                       Title={({ collapsed }) => (
                         <ThemedTitleV2
                           collapsed={collapsed}
@@ -79,10 +118,10 @@ function App() {
                   </Authenticated>
                 }
               >
-                <Route
-                  index
-                  element={<NavigateToResource resource="blog_posts" />}
-                />
+           
+
+                <Route path="/" element={<HomePage/>} />
+                <Route path="/users" element={<UsersPage/>} />
 
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
